@@ -1,0 +1,102 @@
+
+
+    <div *ngIf="!inFogotFassword">
+
+
+      <h2 class="h1-responsive" fxLayoutAlign="center">Login</h2>
+      <hr>
+
+      <div fxLayoutAlign="center" style="margin-bottom: 20px">
+        <div class="google-btn" (click)="authService.googleLogin()">
+          <div class="google-icon-wrapper">
+            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+          </div>
+          <p class="btn-text"><b>Sign in with google</b></p>
+        </div>
+      </div>
+
+      <div style="display: block" fxLayoutAlign="center">
+        <button class="loginBtn loginBtn--facebook" (click)="authService.faceBookLogin()">
+          Login with Facebook
+        </button>
+      </div>
+
+
+      <h2 class="h4-responsive" style="margin:20px 0 20px 0 " fxLayoutAlign="center">Or</h2>
+
+      <form fxLayoutAlign="center">
+
+        <div class="container">
+          <div class="row">
+
+            <div class="col-sm-12" fxLayoutAlign="center">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Email" [(ngModel)]="email" name="email" type="email" required>
+              </mat-form-field>
+
+              <mat-error>{{emailVerifiedStatus}}</mat-error>
+            </div>
+
+            <div class="col-sm-12" fxLayoutAlign="center">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div fxLayoutAlign="center" class="error-text">
+        <mat-error>{{errorMassage}}</mat-error>
+      </div>
+
+
+      <mat-card-actions fxLayoutAlign="center">
+
+        <button [disabled]="showSpinner" mat-raised-button (click)="login()" color="primary">Login</button>
+      </mat-card-actions>
+
+      <div class="login-bottom" fxLayoutAlign="center">
+        <p fxFlexAlign="left"><a (click)="redirectToSignUp()"> Signup</a></p>
+      </div>
+      <span></span>
+      <div class="login-bottom" fxLayoutAlign="center">
+        <button class="fps" mat-flat-button (click)="forgotPasswordClick()">Forgot password?</button>
+
+      </div>
+
+    </div>
+
+    <div *ngIf="inFogotFassword" [@flyInOut]>
+
+      <mat-card-title fxLayoutAlign="center">Enter your email</mat-card-title>
+      <form fxLayoutAlign="center" class="example-form">
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="email" [(ngModel)]="email" name="femail" required>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+      </form>
+
+      <div style="margin: 1px" fxLayoutAlign="center">
+        <p [style.color]="!successResetSend? 'red' :'black'">{{emailSentMassage}}</p>
+      </div>
+
+      <div class="button-container" fxLayoutAlign="center">
+        <button mat-flat-button (click)="sendRecoveryMail()">Send email</button>
+      </div>
+
+      <div class="button-container back" fxLayoutAlign="center">
+        <button mat-flat-button (click)="back()">Back</button>
+
+      </div>
+    </div>
+
+    <div class="pr-container">
+      <mat-progress-bar mode="indeterminate" [style.display]="showSpinner ? 'block' : 'none'"></mat-progress-bar>
+    </div>
+
